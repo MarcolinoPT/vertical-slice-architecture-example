@@ -1,0 +1,67 @@
+<div [formGroup]="parentGroup" style="display:contents;">
+    <td>
+        <input type="text"
+               class="form-control"
+               formControlName="firstName"
+               [value]="user.firstName"
+               title="First Name" />
+    </td>
+    <td>
+        <input type="text"
+               class="form-control"
+               formControlName="lastName"
+               [value]="user.lastName"
+               title="Last Name" />
+    </td>
+    <td>
+        <input type="text"
+               class="form-control"
+               formControlName="streetName"
+               [value]="user.streetName"
+               title="Street Name" />
+    </td>
+    <td>
+        <input type="text"
+               class="form-control"
+               formControlName="houseNumber"
+               [value]="user.houseNumber"
+               title="House Number" />
+    </td>
+    <td>
+        <input type="text"
+               class="form-control"
+               formControlName="apartmentNumber"
+               [value]="user.apartmentNumber"
+               title="Apartment Number" />
+    </td>
+    <td>
+        <input type="text"
+               class="form-control"
+               formControlName="postalCode"
+               [value]="user.postalCode"
+               title="Postal Code" />
+    </td>
+    <td>
+        <input type="text"
+               class="form-control"
+               formControlName="town"
+               [value]="user.town"
+               title="Town" />
+    </td>
+    <td>
+        <input type="text"
+               class="form-control"
+               formControlName="phoneNumber"
+               [value]="user.phoneNumber"
+               title="Phone Number" />
+    </td>
+    <td>
+        <input type="date"
+               class="form-control"
+               formControlName="dateOfBirth"
+               name="dateOfBirth"
+               [value]="user.dateOfBirth"
+               title="Date of Birth" />
+    </td>
+    <td style="position: relative;left:0.7em;">{{ user.age }}</td>
+</div>

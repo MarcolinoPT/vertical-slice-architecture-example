@@ -1,0 +1,64 @@
+<div class="container">
+    <alert></alert>
+    <ngx-spinner type="ball-scale-multiple"></ngx-spinner>
+    <form [formGroup]="form" (ngSubmit)="save()">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Street Name</th>
+                    <th scope="col">House Number</th>
+                    <th scope="col">Apartment Number</th>
+                    <th scope="col">Postal code</th>
+                    <th scope="col">Town</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Date of Birth</th>
+                    <th scope="col">Age</th>
+                    <th>
+                        <button type="button"
+                                title="Add New"
+                                class="btn btn-primary"
+                                (click)="softAddUser()"
+                                [disabled]="isEditing">
+                            <i class="bi bi-plus"></i>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- No users available -->
+                <tr *ngIf="users.length == 0">
+                    <td colspan="11" class="text-center">
+                        <div class="p-2">No users available.</div>
+                    </td>
+                </tr>
+                <ng-container *ngFor="let user of users; let i = index">
+                    <!-- Display user information -->
+                    <tr user-display
+                        *ngIf="userSelected != user"
+                        (click)="selectUser(user)"
+                        [(users)]="users"
+                        [(isEditing)]="isEditing"
+                        [(userSelected)]="userSelected"
+                        [userIndex]="i"
+                        [user]="users[i]">
+                    </tr>
+                    <!-- Allow edit user -->
+                    <tr user-edit
+                        *ngIf="userSelected == user"
+                        class="table-primary"
+                        [user]="user"
+                        [parentGroup]="form">
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <!-- Buttons for editing -->
+        <table-options [(users)]="users"
+                       [(isEditing)]="isEditing"
+                       [(userSelected)]="userSelected"
+                       [(form)]="form">
+        </table-options>
+    </form>
+</div>

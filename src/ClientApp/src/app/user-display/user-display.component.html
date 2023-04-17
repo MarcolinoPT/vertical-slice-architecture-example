@@ -1,0 +1,19 @@
+<td>{{ user.firstName }}</td>
+<td>{{ user.lastName }}</td>
+<td>{{ user.streetName }}</td>
+<td>{{ user.houseNumber }}</td>
+<td>{{ user.apartmentNumber }}</td>
+<td>{{ user.postalCode }}</td>
+<td>{{ user.town }}</td>
+<td>{{ user.phoneNumber }}</td>
+<td>{{ user.dateOfBirth }}</td>
+<td>{{ user.age }}</td>
+<td>
+    <button class="btn btn-danger btn-sm mx-1"
+            title="delete"
+            type="button"
+            (click)="deleteUser(userIndex, $event)"
+            [disabled]="isEditing">
+        <i class="bi bi-trash"></i>
+    </button>
+</td>

@@ -1,0 +1,14 @@
+<div *ngIf="isEditing">
+    <button class="btn btn-primary btn-sm mx-1"
+            title="save"
+            type="submit"
+            [disabled]="form.invalid || form.pristine">
+        <i class="bi bi-lightning"></i>
+    </button>
+    <button class="btn btn-danger btn-sm mx-1"
+            title="cancel"
+            (click)="cancel()"
+            type="button">
+        <i class="bi bi-x-lg"></i>
+    </button>
+</div>

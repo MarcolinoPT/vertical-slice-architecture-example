@@ -1,4 +1,4 @@
-﻿namespace Web.Features.Users.GetUsers
+﻿namespace Web.Features.Users
 {
     public record UsersResult
     {

@@ -1,5 +1,4 @@
-﻿using Web.Features.Users.GetUsers;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Web.Features.Users
@@ -17,14 +16,15 @@ namespace Web.Features.Users
         }
 
         [HttpPost]
-        public async Task<ActionResult<UserResult>> EditUser([FromBody] UserRequest data,
-                                                             CancellationToken cancellationToken = new())
+        public async Task<ActionResult<UserResult>> CreateUser([FromBody] UserRequest data,
+                                                               CancellationToken cancellationToken = new())
         {
-            return await _mediator.Send(new Command(data),
-                                        cancellationToken);
+            var result = await _mediator.Send(new Command(data),
+                                              cancellationToken);
+            return CreatedAtAction(nameof(CreateUser), result);
         }
 
-        internal record Command : IRequest<ActionResult<UserResult>>
+        internal record Command : IRequest<UserResult>
         {
             public UserRequest Data { get; init; }
             public Command(UserRequest data)
@@ -33,14 +33,16 @@ namespace Web.Features.Users
             }
         }
 
-        internal class Handler : IRequestHandler<Command, ActionResult<UserResult>>
+        internal class Handler : IRequestHandler<Command, UserResult>
         {
-            public async Task<ActionResult<UserResult>> Handle(Command request,
-                                                               CancellationToken cancellationToken)
+            public async Task<UserResult> Handle(Command request,
+                                                 CancellationToken cancellationToken)
             {
-#pragma warning disable CS8604 // Possible null reference argument.
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    throw new OperationCanceledException();
+                }
                 var dateOfBirth = DateOnly.Parse(request.Data.DateOfBirth);
-#pragma warning restore CS8604 // Possible null reference argument.
                 Data.Users.Current.Insert(index: 0, new Models.User
                 {
                     Id = Guid.NewGuid(),
@@ -55,8 +57,8 @@ namespace Web.Features.Users
                     PostalCode = request.Data.PostalCode,
                     Age = (byte)(DateTime.Now.Year - dateOfBirth.Year)
                 });
-                return await Task.FromResult(new ActionResult<UserResult>(Data.Users.Current.First()
-                                                                                            .ToUserResult()));
+                return Data.Users.Current.First()
+                                         .ToUserResult();
             }
         }
     }

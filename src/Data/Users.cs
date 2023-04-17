@@ -4,6 +4,7 @@ namespace Web.Data
 {
     public static class Users
     {
+        public static bool IsEmpty => Current.Count == 0;
         public static List<User> Current { get; } = new()
         {
             new User
